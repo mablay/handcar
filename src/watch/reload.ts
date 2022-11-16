@@ -28,15 +28,15 @@ export function watch (paths: string[], commands: string[], delay = 200, init = 
     console.log('[RUN] DONE')
   }
   // const lazyListener = debounce(delay, run)
-  function lazyListener () {
+  const lazyListener = debounce(delay, () => {
     if (proc) {
       console.log('killing PID', proc.pid)
       proc.kill('SIGINT')
     }
     run()
-  }
+  })
   if (init) lazyListener()
-
+  
   for (const path of paths) {
     fsWatch(path, { recursive: true }, () => lazyListener())
   }
