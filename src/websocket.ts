@@ -1,7 +1,7 @@
 import { Server } from "http";
 
-let crypto = require('crypto');
-let http = require('http');
+import { createHash } from 'crypto'
+import { createServer } from 'http'
 // Very Simple Web Socket server
 export default (opt) => {
     opt = opt || {};
@@ -13,7 +13,7 @@ export default (opt) => {
     // generate the accept key for the upgrade request
     let genAcceptKey = (req) => {
         let key = req.headers['sec-websocket-key'],
-        sha1 = crypto.createHash('sha1');
+        sha1 = createHash('sha1');
         sha1.update(key + '258EAFA5-E914-47DA-95CA-C5AB0DC85B11');
         let acceptKey = sha1.digest('base64');
         return acceptKey;
@@ -43,7 +43,7 @@ export default (opt) => {
         socket.write(frame);
     };
     // create the server
-    let wsServer = http.createServer();
+    let wsServer = createServer();
     // upgrade handler
     wsServer.on('upgrade', (req, socket, head) => {
         // accept upgrade

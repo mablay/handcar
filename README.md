@@ -27,3 +27,9 @@ server.use('/ws', wsMiddleware(server, (ws, req) => {
   ws.on('message', msg => ws.send("Thank's, got your message!"))
 }))
 ```
+
+## Sources
+That helped me build handcar
+
+* [How to implement a websocket server](https://dustinpfister.github.io/2019/11/20/nodejs-websocket/)
+* [express](https://expressjs.com/)
