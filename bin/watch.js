@@ -2,13 +2,10 @@
 
 import { arg, watch } from '../index.js'
 
-const toArray = x => Array.isArray(x) ? x : [x]
 const { path, cmd, delay } = arg({
   d: ['delay', (x = '200') => parseInt(x)],
-  p: ['path', toArray],
-  c: ['cmd', toArray]
+  p: ['path'],
+  c: ['cmd']
 })
 
-console.log('path:', path)
-console.log('cmd:', cmd)
-watch(path, cmd, delay)
+watch(path.flat(), cmd, delay[0][0])

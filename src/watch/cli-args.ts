@@ -17,51 +17,23 @@ export function arg (options:any = {}) {
         key = nameMap[token.substring(1)]
       }
       if (!key) throw new Error(`Unkonw argument "${token}"!`)
-      if (Array.isArray(params[key])) {
-        params[key].push([])
-      } else {
-        params[key] = [[]]
-      }
-      // setParam(params, key, [])
+      appendValue(params, key, [])
     } else {
       // VALUE
       if (!key) throw new Error(`Missing parameter before value "${token}"!`)
       const transform:Function = castMap[key] || (x => x)
       const value = transform(token)
       const i = params[key].length - 1
-      // console.log(`params[${key}][${i}] = ${value}`)
-      setParam(params[key], i, value)
-      // params[key][i].push(value)
+      appendValue(params[key], i, value)
     }
   }
   return params
 }
 
-function setParam (params:any, key:string, value: any) {
-  if (params[key]) {
-    if (Array.isArray(params[key])) {
-      params[key] = params[key].concat(value)
-    } else {
-      params[key] = [params[key], value]
-    }
+function appendValue (params:any, key:any, value: any) {
+  if (Array.isArray(params[key])) {
+    params[key].push(value)
   } else {
     params[key] = [value]
   }
 }
-
-
-// function parseToken (token:string, nameMap: any = {}, castMap: any = {}) {
-//   let key = ''
-//   if (token.startsWith('--')) {
-//     key = token.substring(2)
-//   } else if (token.startsWith('-')) {
-//     key = nameMap[token.substring(1)]
-//   } else {
-//     value = castMap
-//   }
-//   if (!key || !Object.values(nameMap).includes(key)) {
-//     throw new Error(`Unknown key "${token}"!`)
-//   }
-//   const map = castMap[key]
-//   return { key, map }
-// }
