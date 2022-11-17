@@ -1,4 +1,13 @@
+/** *********************************************
+### CLI argument parser
 
+This code is actually pretty ugly and the format
+it produces works for the required use case but
+it's also ugly.
+This is a good candidate for userland replacement.
+
+@see https://www.npmjs.com/package/arg
+*********************************************** */
 export function arg (options:any = {}) {
   const nameMap = Object.entries(options).reduce((acc, [key, val]:any) => ({ ...acc, [key]: val[0]}), {})
   const castMap = Object.entries(options).reduce((acc, [_key, val]:any) => ({ ...acc, [val[0]]: val[1]}), {})
