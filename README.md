@@ -3,12 +3,12 @@
 
 Lightweight web server inspired by express, connect.
 
-## Features
+## Features (and their implementation progress)
 
-* HTTP/HTTPS
-* Static file hosting
-* Watch mode
-* WebSockets
+* [0.5] HTTP/HTTPS
+* [0.5] Static file hosting
+* [1.0] Watch mode
+* [0.0] WebSockets
 
 ## Usage
 
