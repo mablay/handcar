@@ -2,14 +2,16 @@
 
 import { createServer, wsMiddleware } from '../index.js'
 
+const webroot = process.argv[2] || '.'
+
 const app = createServer({
   host: '0.0.0.0',
   port: 8080,
-  https: true,
-  watch: ['public'],
-  static: 'public'
+  https: false,
+  webroot,
+  watch: true
 })
 
-app.use('/ws', wsMiddleware(app.server, (ws, req) => {
+app.use('/ws', wsMiddleware(app, (ws, req) => {
   ws.on('message', msg => ws.send("Thank's, got your message!"))
 }))
