@@ -35,13 +35,14 @@
   "devDependencies": {
     "@types/node": "^18.11.9",
     "esbuild": "^0.15.13",
+    "pta": "^1.2.0",
+    "tslint": "^6.1.3",
     "tsm": "^2.2.2",
     "typescript": "^4.8.4",
-    "tslint": "^6.1.3",
-    "pta": "^1.2.0",
     "zora": "^5.1.0"
   },
   "dependencies": {
+    "commander": "^9.4.1",
     "ws": "^8.11.0"
   },
   "files": [

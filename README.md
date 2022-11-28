@@ -3,17 +3,43 @@
 
 Lightweight development web server inspired by express, connect.
 
-As the name suggests it's heavily inferior to [express](https://www.npmjs.com/package/express). It focusses only on the most useful features and provides them without dependencies, except [ws](https://www.npmjs.com/package/ws). Which is a great library for server side WebSocket implementation and has no dependencies itself.
+As the name suggests it's heavily inferior to [express](https://www.npmjs.com/package/express). It focusses only on the most useful features and provides them with a minimum of dependencies.
+
+* [ws](https://www.npmjs.com/package/ws) the goto NodeJS WebSocket implementation (zero sub dependencies)
+* [commander](https://www.npmjs.com/package/commander) excellent CLI agrument parser (zero sub dependencies)
 
 STATUS: Working, but in development.
 
 ## Features
 
+* CLI
 * HTTP/HTTPS
 * WebSockets
 * Static file hosting
 * Live reload client page
 
+## CLI
+```s
+Usage: handcar [options] <webroot>
+
+development webserver
+
+Arguments:
+  webroot            path to webroot
+
+Options:
+  -V, --version      output the version number
+  -s, --https        Use HTTPS
+  -H, --host <host>  Use '0.0.0.0' to expose the server (default: "localhost")
+  -p, --port <port>  The port the webserver will use (default: 8080)
+  -w, --no-watch     Prevent watching the webroot for changes
+  -h, --help         display help for command
+```
+Example:
+```sh
+# start webserver in local directory using HTTPS and live reload.
+handcar -s .
+```
 ## Usage
 
 ```js
