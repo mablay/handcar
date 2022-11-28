@@ -3,7 +3,7 @@
 
 Lightweight web server inspired by express, connect.
 
-As the name suggests it's heavily inferiour to [express](https://www.npmjs.com/package/express). It focusses only on the most useful features and provides them without dependencies, except [ws](https://www.npmjs.com/package/ws). Which is a great library for server side WebSocket implementation and has no dependencies itself.
+As the name suggests it's heavily inferior to [express](https://www.npmjs.com/package/express). It focusses only on the most useful features and provides them without dependencies, except [ws](https://www.npmjs.com/package/ws). Which is a great library for server side WebSocket implementation and has no dependencies itself.
 
 STATUS: Experimental!
 
