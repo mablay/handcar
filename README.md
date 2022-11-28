@@ -23,7 +23,7 @@ const app = createServer({
   host: '0.0.0.0',
   port: 8080,
   https: false,
-  webroot,
+  webroot: '.',
   watch: true
 })
 ```

@@ -28,7 +28,15 @@ export function createServer (options:any = {}, requestListener:Handler):Handcar
   const { rootHandler, use } = createMiddlewareStack()
 
   // TODO: https options { key, cert }
-  const serverOptions = {}
+  const serverOptions:any = {}
+  if (https) {
+    serverOptions.https = {
+      key: https.key.toString(),
+      cert: https.cert.toString()
+    }
+    console.log('using HTTPS')
+  }
+  const scheme = https ? 'https' : 'http'
   const server = https
     ? createHttpsServer(serverOptions, rootHandler)
     : createHttpServer(serverOptions, rootHandler)
@@ -44,6 +52,6 @@ export function createServer (options:any = {}, requestListener:Handler):Handcar
     use('/', requestListener)
   }
 
-  app.listen(port, host, () => console.log(`⚡ hosting "${webroot}" at http://${host}:${port}`))
+  app.listen(port, host, () => console.log(`⚡ hosting "${webroot}" at ${scheme}://${host}:${port}`))
   return app
 }
