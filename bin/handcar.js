@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { createServer, wsMiddleware } from '../index.js'
+import { createServer } from '../index.js'
 
 const webroot = process.argv[2] || '.'
 
@@ -12,6 +12,6 @@ const app = createServer({
   watch: true
 })
 
-app.use('/ws', wsMiddleware(app, (ws, req) => {
-  ws.on('message', msg => ws.send("Thank's, got your message!"))
-}))
+// app.ws('/ws', (req, ws) => {
+//   ws.on('message', msg => ws.send("Thank's, got your message!"))
+// })

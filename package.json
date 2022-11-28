@@ -10,7 +10,7 @@
   "scripts": {
     "build": "node esbuild.cjs",
     "build:watch": "node esbuild.cjs --watch",
-    "watch": "npm run build && NODE_OPTIONS=--enable-source-maps bin/watch.js -d 200 -p src -p example -p test -p bin/handcar.js -c npm run build -c npm run test -c node bin/handcar.js example",
+    "watch": "npm run build && NODE_OPTIONS=--enable-source-maps bin/watch.js -d 200 -p src -p test -p bin/handcar.js -c npm run build -c npm run test -c node bin/handcar.js example",
     "test": "NODE_OPTIONS=--enable-source-maps pta",
     "lint": "tslint -c tslint.json src/**/*.ts",
     "prepublish": "npm run build"
@@ -35,7 +35,8 @@
     "zora": "^5.1.0"
   },
   "dependencies": {
-    "tslint": "^6.1.3"
+    "tslint": "^6.1.3",
+    "ws": "^8.11.0"
   },
   "files": [
     "./bin/handcar.js",

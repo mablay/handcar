@@ -3,7 +3,7 @@ require('esbuild').build({
   // target: 'esnext',
   bundle: true,
   outfile: 'index.js',
-  external: 'url,path,http,https,crypto,fs,child_process'.split(','),
+  external: 'url,path,http,https,crypto,fs,child_process,ws'.split(','),
   platform: 'neutral',
   sourcemap: true,
   watch: process.argv.slice(2).includes('--watch')

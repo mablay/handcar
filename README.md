@@ -31,5 +31,6 @@ server.use('/ws', wsMiddleware(server, (ws, req) => {
 ## Sources
 That helped me build handcar
 
+* [WebSocket Protocol RFC](https://www.rfc-editor.org/rfc/rfc6455)
 * [How to implement a websocket server](https://dustinpfister.github.io/2019/11/20/nodejs-websocket/)
 * [express](https://expressjs.com/)
