@@ -14,10 +14,11 @@ const program = new Command()
   .option('-H, --host <host>', "Use '0.0.0.0' to expose the server", 'localhost')
   .option('-p, --port <port>', 'The port the webserver will use', integer, 8080)
   .option('-w, --no-watch', 'Prevent watching the webroot for changes')
+  .option('-o, --open', 'Open browser')
   .argument('<webroot>', 'path to webroot')
   .parse(process.argv)
 
 const options = program.opts()
 options.webroot = program.args[0]
-console.log(options)
+// console.log(options)
 createServer(options)

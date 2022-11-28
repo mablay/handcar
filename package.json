@@ -8,6 +8,7 @@
     "handcar": "bin/handcar.js"
   },
   "scripts": {
+    "start": "node bin/handcar.js -s example",
     "build": "node esbuild.cjs",
     "build:watch": "node esbuild.cjs --watch",
     "watch": "npm run build && NODE_OPTIONS=--enable-source-maps bin/watch.js -d 200 -p src -p test -p bin/handcar.js -c npm run build -c npm run test -c node bin/handcar.js example",

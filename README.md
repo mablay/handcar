@@ -33,6 +33,7 @@ Options:
   -H, --host <host>  Use '0.0.0.0' to expose the server (default: "localhost")
   -p, --port <port>  The port the webserver will use (default: 8080)
   -w, --no-watch     Prevent watching the webroot for changes
+  -o, --open         Open browser
   -h, --help         display help for command
 ```
 Example:
@@ -48,9 +49,10 @@ import { createServer } from 'handcar'
 const app = createServer({
   host: '0.0.0.0',
   port: 8080,
-  https: true,
+  https: false,
   webroot: '.',
-  watch: true
+  watch: true,
+  open: false
 })
 ```
 

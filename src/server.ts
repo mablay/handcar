@@ -10,13 +10,15 @@ import { webSocketFactory } from './plugins/websocket.js'
 import { secureServerOptions } from './util.js'
 
 import type { Handler, Handcar } from './types.js'
+import { exec } from 'child_process'
 
 const defaultOptions = {
   // webroot: '.',
   host: '127.0.0.1',
   port: 8080,
   https: false,
-  watch: true
+  watch: true,
+  open: false
 }
 
 export {
@@ -25,7 +27,7 @@ export {
 }
 
 export function createServer (options:any = {}, requestListener:Handler):Handcar {
-  const { host, port, https, webroot } = Object.assign({}, defaultOptions, options)
+  const { host, port, https, webroot, watch, open } = Object.assign({}, defaultOptions, options)
 
   const { rootHandler, use } = createMiddlewareStack()
 
@@ -47,6 +49,12 @@ export function createServer (options:any = {}, requestListener:Handler):Handcar
     use('/', requestListener)
   }
 
-  app.listen(port, host, () => console.log(`⚡ hosting "${webroot}" at ${scheme}://${host}:${port}`))
+  const mode = watch ? 'live' : 'static'
+  app.listen(port, host, () => {
+    const url = `${scheme}://${host}:${port}`
+    console.log(`⚡ ${mode} hosting "${webroot}" at ${url}`)
+    if (!open) return
+    exec(`open ${url}`)
+  })
   return app
 }
