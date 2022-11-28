@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { readFileSync } from 'fs'
+import { readFileSync } from 'node:fs'
 import { createServer } from '../index.js'
 
 const webroot = process.argv[2] || '.'
@@ -8,10 +8,7 @@ const webroot = process.argv[2] || '.'
 const app = createServer({
   host: '0.0.0.0',
   port: 8080,
-  // https: {
-  //   key: readFileSync('localhost.key'),
-  //   cert: readFileSync('localhost.pem')
-  // },
+  https: true,
   webroot,
   watch: true
 })

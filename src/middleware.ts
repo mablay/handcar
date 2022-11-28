@@ -1,12 +1,13 @@
 import { IncomingMessage, ServerResponse } from "http"
 import { Handler, MidllewareStack } from "./types.js"
+import { parseUrl } from "./util.js"
 
 export function createMiddlewareStack () {
   const middleware: MidllewareStack = []
 
   function rootHandler (req:IncomingMessage, res:ServerResponse) {
     console.log('[handcar.mw.rootHandler] url:', req.url)
-    const url = new URL(req.url || '', `http://${req.headers.host}`)
+    const url = parseUrl(req)
     let next
     for (const mw of middleware) {
       if (url.pathname.startsWith(mw.path)) {

@@ -1,11 +1,13 @@
 // A super lightweight web server
 import { createServer as createHttpServer } from 'http'
 import { createServer as createHttpsServer } from 'https'
+// import { createSecureServer as createHttp2Server } from 'http2'
 import { staticMiddleware } from './mw/static.js'
 import { notFoundHandler } from './mw/not-found.js'
 import { routerMiddleware } from './mw/router.js'
 import { createMiddlewareStack } from './middleware.js'
 import { webSocketFactory } from './plugins/websocket.js'
+import { secureServerOptions } from './util.js'
 
 import type { Handler, Handcar } from './types.js'
 
@@ -28,14 +30,7 @@ export function createServer (options:any = {}, requestListener:Handler):Handcar
   const { rootHandler, use } = createMiddlewareStack()
 
   // TODO: https options { key, cert }
-  const serverOptions:any = {}
-  if (https) {
-    serverOptions.https = {
-      key: https.key.toString(),
-      cert: https.cert.toString()
-    }
-    console.log('using HTTPS')
-  }
+  const serverOptions = secureServerOptions(https)
   const scheme = https ? 'https' : 'http'
   const server = https
     ? createHttpsServer(serverOptions, rootHandler)

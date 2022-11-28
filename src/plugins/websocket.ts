@@ -2,6 +2,7 @@ import { IncomingMessage, Server } from 'http'
 import { WSHandler, WSMiddleware } from '../types.js'
 import { WebSocketServer } from 'ws'
 import { Socket } from 'net'
+import { parseUrl } from '../util.js'
 
 type WSSMap = {[path:string]:WebSocketServer}
 
@@ -9,7 +10,7 @@ export function webSocketFactory (server: Server): WSMiddleware {
   const wssMap:WSSMap = {}
 
   server.on('upgrade', function upgrade(req:IncomingMessage, socket:Socket, head:any) {
-    const url = new URL(req.url || '', `http://${req.headers.host}`)
+    const url = parseUrl(req)
     console.log('[handcar.ws.upgrade]', url.pathname)
   
     const wss = wssMap[url.pathname]

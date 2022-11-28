@@ -2,17 +2,31 @@ import { createReadStream, watch } from 'fs'
 import { access, readFile } from 'fs/promises'
 import { IncomingMessage, ServerResponse } from 'http'
 import { WebSocket } from 'ws'
-import { join } from 'path'
+import { extname, join } from 'path'
 import { Handcar } from '../types.js'
 import { handcarLive } from '../watch/client-ws.js'
+import { parseUrl } from '../util.js'
 // import { fileURLToPath } from 'url'
 // const __dirname = dirname(fileURLToPath(import.meta.url))
+
+// TODO: copy paste https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
+const mimeMap = {
+  html: 'text/html',
+  htm: 'text/html',
+  js: 'text/javascript',
+  css: 'text/css',
+  json: 'application/json',
+  jpg: 'image/jpeg',
+  jpeg: 'image/jpeg',
+  mp4: 'video/mp4',
+  ico: 'image/vnd.microsoft.icon'
+}
 
 export function staticMiddleware (webroot: string, app: Handcar) {
 
   const clients = new Set<WebSocket>()
   app.ws('/ws', function staticWatcher (ws, req) {
-    console.log('[handcar.ws.connect] url:', req.url)
+    console.log('[handcar.static.ws] connect:', req.url)
     clients.add(ws)
   })
 
@@ -33,7 +47,7 @@ export function staticMiddleware (webroot: string, app: Handcar) {
    */
   return async function staticHandler (req: IncomingMessage, res: ServerResponse, next) {
     if (!webroot) return next()
-    const url = new URL(req.url || '', `http://${req.headers.host}`)
+    const url = parseUrl(req)
     if (url.pathname === '/_handcar_ws.js') {
       // console.log('url:', url)
       // console.log('fn:', liveSocket.toString())
@@ -43,10 +57,12 @@ export function staticMiddleware (webroot: string, app: Handcar) {
     // TODO: distinguish between ACCESS and EXISTS
     //       those should yield different error messages to the user
     if (!file) return next()
-    console.log('[handcar.mw.autoIndexHandler]', req.url, '=>', file)
+    console.log('[handcar.static.autoIndexHandler]', req.url, '=>', file)
+    setContentTypeHeader(file, res)
     if (file.endsWith('.html')) {
       return injectLiveWebsocket(file, res)
     }
+
     const stream = createReadStream(file)
     stream.pipe(res)
     stream.on('error', error => {
@@ -70,7 +86,7 @@ function resolveFile (webroot: string, url: URL): Promise<string> {
 
 /** Inject code into HTML files that loads the WS script */
 async function injectLiveWebsocket (path: string, res: ServerResponse) {
-  console.log('[handcar.mw.injectLiveWebsocket]', path)
+  console.log('[handcar.static.injectLiveWebsocket]', path)
   const html = await readFile(path, 'utf8')
   const i = html.indexOf('</body>')
   // console.log('inject WS code before:', i)
@@ -83,11 +99,23 @@ async function injectLiveWebsocket (path: string, res: ServerResponse) {
 }
 
 /** Use this function to serve a function as text */
-function liveSocket (_req: IncomingMessage, res: ServerResponse) {
-  const wsUrl = 'ws://localhost:8080/ws'
+function liveSocket (req: IncomingMessage, res: ServerResponse) {
+  const url = parseUrl(req)
+  const tls = url.protocol === 'https:'
+  const scheme = tls ? 'wss' : 'ws'
+  const wsUrl = `${scheme}://${url.host}/ws`
+  // console.log('wsUrl:', url)
   const script = [
     `handcarLive('${wsUrl}')`,
     handcarLive.toString()
   ].join('\n')
   res.end(script)
+}
+
+function setContentTypeHeader(file:string, res: ServerResponse) {
+  const ext = extname(file).toLowerCase().slice(1)
+  const mime = mimeMap[ext]
+  console.log('[handcar.static.setContentTypeHeader] MimeType:', ext, '=>', mime)
+  if (!mime) return
+  res.setHeader('Content-Type', mime)
 }
