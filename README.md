@@ -3,29 +3,29 @@
 
 Lightweight web server inspired by express, connect.
 
-## Features (and their implementation progress)
+As the name suggests it's heavily inferiour to [express](https://www.npmjs.com/package/express). It focusses only on the most useful features and provides them without dependencies, except [ws](https://www.npmjs.com/package/ws). Which is a great library for server side WebSocket implementation and has no dependencies itself.
 
-* [0.5] HTTP/HTTPS
-* [0.5] Static file hosting
-* [1.0] Watch mode
-* [0.0] WebSockets
+STATUS: Experimental!
+
+## Features
+
+* HTTP/HTTPS
+* WebSockets
+* Static file hosting
+* Live reload client page
 
 ## Usage
 
 ```js
-import { createServer, wsMiddleware } from 'handcar'
+import { createServer } from 'handcar'
 
-const server = createServer({
+const app = createServer({
   host: '0.0.0.0',
   port: 8080,
-  https: true,
-  watch: ['public'],
-  static: 'public'
+  https: false,
+  webroot,
+  watch: true
 })
-
-server.use('/ws', wsMiddleware(server, (ws, req) => {
-  ws.on('message', msg => ws.send("Thank's, got your message!"))
-}))
 ```
 
 ## Sources

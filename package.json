@@ -1,7 +1,7 @@
 {
   "name": "handcar",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.9.0",
+  "description": "Minimal webserver. Live reload, WebSockets, File Server, Express compliant(ish)",
   "main": "index.js",
   "type": "module",
   "bin": {
@@ -20,7 +20,12 @@
     "server",
     "http",
     "https",
-    "websocket"
+    "websocket",
+    "static",
+    "live",
+    "hot",
+    "reload",
+    "webroot"
   ],
   "author": {
     "name": "Marc Ablay"
@@ -29,13 +34,13 @@
   "devDependencies": {
     "@types/node": "^18.11.9",
     "esbuild": "^0.15.13",
-    "pta": "^1.2.0",
     "tsm": "^2.2.2",
     "typescript": "^4.8.4",
+    "tslint": "^6.1.3",
+    "pta": "^1.2.0",
     "zora": "^5.1.0"
   },
   "dependencies": {
-    "tslint": "^6.1.3",
     "ws": "^8.11.0"
   },
   "files": [
