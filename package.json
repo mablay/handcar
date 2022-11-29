@@ -51,5 +51,9 @@
     "./index.js",
     "./index.js.map"
   ],
-  "typings": "./lib/index.d.ts"
+  "typings": "./lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mablay/handcar.git"
+  }
 }
