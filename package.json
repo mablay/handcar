@@ -1,6 +1,6 @@
 {
   "name": "handcar",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "Minimal webserver. Live reload, WebSockets, File Server, Express compliant(ish)",
   "main": "index.js",
   "type": "module",
