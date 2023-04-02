@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "bin": {
-    "handcar": "./  bin/handcar.js"
+    "handcar": "./bin/handcar.js"
   },
   "scripts": {
     "start": "node bin/handcar.js -s example",
