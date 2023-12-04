@@ -19,7 +19,9 @@ const mimeMap = {
   jpg: 'image/jpeg',
   jpeg: 'image/jpeg',
   mp4: 'video/mp4',
-  ico: 'image/vnd.microsoft.icon'
+  ico: 'image/x-icon',
+  // ts: 'video/mp2t',
+  ts: 'text/javascript',
 }
 
 export function staticMiddleware (webroot: string, app: Handcar) {
