@@ -1,9 +1,10 @@
 
 # Handcar
 
-Lightweight development web server inspired by express, connect.
+Lightweight development web server inspired by express and connect.
 
-As the name suggests it's heavily inferior to [express](https://www.npmjs.com/package/express). It focusses only on the most useful features and provides them with a minimum of dependencies.
+As the name suggests it's heavily inferior to [express](https://www.npmjs.com/package/express).
+It focusses only on the most useful features and provides them with a minimum of dependencies:
 
 * [ws](https://www.npmjs.com/package/ws) the goto NodeJS WebSocket implementation (zero sub dependencies)
 * [commander](https://www.npmjs.com/package/commander) excellent CLI agrument parser (zero sub dependencies)
@@ -16,7 +17,7 @@ STATUS: Working, but in development.
 * HTTP/HTTPS
 * WebSockets
 * Static file hosting
-* Live reload client page
+* Live reload browser page
 
 ## CLI
 ```s
